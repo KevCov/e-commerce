@@ -1,0 +1,15 @@
+{
+  "name": "Cabernet Sauvignon Reserva 2018 750ml",
+  "description": "Vino tinto seco con notas de frutos rojos y especias.",
+  "countryOrigin": "Chile",
+  "unitPrice": 89.99,
+  "stock": 120,
+  "uom": "BOTTLE",
+  "brand": {
+    "name": "Viña Concha y Toro"
+  },
+  "category": {
+    "name": "Vinos y Licores",
+    "description": "Bebidas alcohólicas de alta calidad."
+  }
+}

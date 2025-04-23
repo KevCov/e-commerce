@@ -1,0 +1,7 @@
+jwt:
+  secret: ${SECRET_KEY}
+  expiration:
+    token: 1200000
+    refreshToken: 604800000
+server:
+  port: 8555

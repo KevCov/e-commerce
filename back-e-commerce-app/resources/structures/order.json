@@ -1,0 +1,16 @@
+{
+  "reference": "ORD-0017",
+  "totalAmount": 680.00,
+  "paymentMethod": "YAPE",
+  "customerId": "67a906beeaefaafa77e4326d",
+  "products": [
+    {
+      "id": "8",
+      "quantity": 9
+    },
+    {
+      "id": "12",
+      "quantity": 6
+    }
+  ]
+}

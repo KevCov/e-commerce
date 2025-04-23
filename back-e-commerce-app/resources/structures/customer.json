@@ -1,0 +1,15 @@
+{
+  "firstName": "Gonzalo",
+  "lastName": "Gomez",
+  "dni": "72937292",
+  "address": {
+    "street": "Av. La Paz",
+    "houseNumber": 142,
+    "zipCode": 18106
+  },
+  "userLogin": {
+    "email": "gonzalo@example.com",
+    "password": "gonzalo123",
+    "role": "USER"
+  }
+}
