@@ -10,6 +10,7 @@ import Profile from "./pages/Profile";
 import ProtectedRoute from "./utils/ProtectedRoute";
 import { useAuth } from "./contexts/AuthContext";
 import { Toaster } from "react-hot-toast";
+import Details from "./pages/Details";
 
 function App() {
   const isAuthenticated = useAuth().isAuthenticated;
@@ -23,6 +24,7 @@ function App() {
         <Route path="/reset" element={<ResetPassword />} />
         <Route path="/store" element={<Store />} />
         <Route path="/basket" element={<Basket />} />
+        <Route path="/details/:id" element={<Details />} />
         <Route element={<ProtectedRoute canActivate={isAuthenticated} />}>
           <Route path="/profile" element={<Profile />} />
         </Route>

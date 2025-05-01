@@ -10,8 +10,8 @@ const OrderInfo = ({order}: OrderInfoProps) => {
     <div className="flex flex-col md:flex-row justify-between items-start md:items-center">
       <div className="mb-4 md:mb-0">
         <div className="flex items-center space-x-4">
-          <span className="text-sm font-medium text-gray-900">
-            Order {order.id}
+          <span className="text-sm font-bold text-gray-900">
+            Order #{order.id}
           </span>
           <span className="px-3 py-1 rounded-full text-xs font-medium bg-green-100 text-green-800">Entregado</span>
         </div>

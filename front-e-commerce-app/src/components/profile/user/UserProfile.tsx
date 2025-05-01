@@ -1,4 +1,5 @@
 import { User } from "../../../types/user";
+import EditUserModal from "./EditUserModal";
 
 interface UserProfileProps {
   userInfo: User,
@@ -13,9 +14,8 @@ const UserProfile = ( {userInfo, totalOrders}: UserProfileProps ) => {
         </h2>
       <div className="container mx-auto px-4">
         <div className="relative p-8 border border-gray-200 rounded-2xl">
-          <a className="absolute top-0 right-0 mt-4 mr-4" href="#">
-            <img src="/images/iconEditar.png" />
-          </a>
+          
+          <EditUserModal />
           <div className="flex mb-6 items-center">
             <img
               className="object-cover mr-4 rounded-2xl w-16 h-16"

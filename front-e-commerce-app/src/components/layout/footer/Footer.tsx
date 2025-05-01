@@ -17,21 +17,21 @@ const Footer: FC = () => {
               control for much longer.
             </p>
             <div className="flex gap-6 items-center">
-              <Link to="#" className="group bg-white hover:bg-[#8c3588] rounded-full shadow-xl p-3">
+              <Link to="#" className="group bg-white hover:bg-[#800020] rounded-full shadow-xl p-3">
                 <FaFacebookF
                   width="16"
                   height="16"
                   className=" group-hover:text-white text-black"
                 />
               </Link>
-              <Link to="#" className="group bg-white hover:bg-[#8c3588] rounded-full shadow-xl p-3">
+              <Link to="#" className="group bg-white hover:bg-[#800020] rounded-full shadow-xl p-3">
                 <FaInstagram
                   width="16"
                   height="16"
                   className=" group-hover:text-white text-black"
                 />
               </Link>
-              <Link to="#" className="group bg-white hover:bg-[#8c3588] rounded-full shadow-xl p-3">
+              <Link to="#" className="group bg-white hover:bg-[#800020] rounded-full shadow-xl p-3">
                 <FaXTwitter
                   width="16"
                   height="16"
@@ -46,7 +46,7 @@ const Footer: FC = () => {
               <li className="pb-5">
                 <Link
                   to="#"
-                  className="text-black/70 hover:text-[#8c3588] text-base"
+                  className="text-black/70 hover:text-[#800020] text-base"
                 >
                   About
                 </Link>
@@ -54,7 +54,7 @@ const Footer: FC = () => {
               <li className="pb-5">
                 <Link
                   to="#"
-                  className="text-black/70 hover:text-[#8c3588] text-base"
+                  className="text-black/70 hover:text-[#800020] text-base"
                 >
                   Careers
                 </Link>
@@ -62,7 +62,7 @@ const Footer: FC = () => {
               <li className="pb-5">
                 <Link
                   to="#"
-                  className="text-black/70 hover:text-[#8c3588] text-base"
+                  className="text-black/70 hover:text-[#800020] text-base"
                 >
                   Mobile
                 </Link>
@@ -70,7 +70,7 @@ const Footer: FC = () => {
               <li className="pb-5">
                 <Link
                   to="#"
-                  className="text-black/70 hover:text-[#8c3588] text-base"
+                  className="text-black/70 hover:text-[#800020] text-base"
                 >
                   Blog
                 </Link>
@@ -78,7 +78,7 @@ const Footer: FC = () => {
               <li className="pb-5">
                 <Link
                   to="#"
-                  className="text-black/70 hover:text-[#8c3588] text-base"
+                  className="text-black/70 hover:text-[#800020] text-base"
                 >
                   How we work?
                 </Link>
@@ -91,7 +91,7 @@ const Footer: FC = () => {
               <li className="pb-5">
                 <Link
                   to="#"
-                  className="text-black/70 hover:text-[#8c3588] text-base"
+                  className="text-black/70 hover:text-[#800020] text-base"
                 >
                   Help/FAQ
                 </Link>
@@ -99,7 +99,7 @@ const Footer: FC = () => {
               <li className="pb-5">
                 <Link
                   to="#"
-                  className="text-black/70 hover:text-[#8c3588] text-base"
+                  className="text-black/70 hover:text-[#800020] text-base"
                 >
                   Press
                 </Link>
@@ -107,7 +107,7 @@ const Footer: FC = () => {
               <li className="pb-5">
                 <Link
                   to="#"
-                  className="text-black/70 hover:text-[#8c3588] text-base"
+                  className="text-black/70 hover:text-[#800020] text-base"
                 >
                   Affiliates
                 </Link>
@@ -115,7 +115,7 @@ const Footer: FC = () => {
               <li className="pb-5">
                 <Link
                   to="#"
-                  className="text-black/70 hover:text-[#8c3588] text-base"
+                  className="text-black/70 hover:text-[#800020] text-base"
                 >
                   Hotel owners
                 </Link>
@@ -123,7 +123,7 @@ const Footer: FC = () => {
               <li className="pb-5">
                 <Link
                   to="#"
-                  className="text-black/70 hover:text-[#8c3588] text-base"
+                  className="text-black/70 hover:text-[#800020] text-base"
                 >
                   Partners
                 </Link>
@@ -137,7 +137,7 @@ const Footer: FC = () => {
                 <li key={index} className="pb-4">
                   <Link
                     to={item.href}
-                    className="text-black/70 hover:text-[#8c3588] text-base"
+                    className="text-black/70 hover:text-[#800020] text-base"
                   >
                     {item.label}
                   </Link>
@@ -152,8 +152,8 @@ const Footer: FC = () => {
           </p>
 
           <div className="">
-            <Link to="#" className="text-sm text-black/70 px-5 border-r border-[#363636]/15 hover:text-[#8c3588]">Privacy policy</Link>
-            <Link to="#" className="text-sm text-black/70 px-5 hover:text-[#8c3588]">Terms & conditions</Link>
+            <Link to="#" className="text-sm text-black/70 px-5 border-r border-[#363636]/15 hover:text-[#800020]">Privacy policy</Link>
+            <Link to="#" className="text-sm text-black/70 px-5 hover:text-[#800020]">Terms & conditions</Link>
           </div>
         </div>
       </div>

@@ -8,8 +8,8 @@ export interface Address {
   province: string;
   district: string;
   street: string;
-  houseNumber: number;
-  zipCode: number;
+  houseNumber?: number;
+  zipCode?: number;
 }
 
 interface UserLogin {
@@ -19,11 +19,11 @@ interface UserLogin {
 
 export interface User {
   id?: string;
-  firstName: string;
-  lastName: string;
-  dni: string;
+  firstName?: string;
+  lastName?: string;
+  dni?: string;
   phoneNumber?: string;
-  email: string;
+  email?: string;
   password?: string;
   address?: Address;
 }

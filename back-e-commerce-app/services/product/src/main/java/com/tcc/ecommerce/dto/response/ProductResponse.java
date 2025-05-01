@@ -14,6 +14,7 @@ public record ProductResponse(
         String id,
         String name,
         String description,
+        String largeDescription,
         String countryOrigin,
         BigDecimal unitPrice,
         Uom uom,

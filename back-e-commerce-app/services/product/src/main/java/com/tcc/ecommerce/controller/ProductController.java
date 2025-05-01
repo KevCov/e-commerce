@@ -8,10 +8,15 @@ import com.tcc.ecommerce.service.ProductService;
 import com.tcc.ecommerce.utils.ResponseUtil;
 import jakarta.validation.Valid;
 import lombok.RequiredArgsConstructor;
+import org.hibernate.query.Page;
+import org.springframework.data.domain.Pageable;
+import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
 import java.util.List;
+
+import static org.springframework.http.HttpStatus.CREATED;
 
 @RestController
 @RequestMapping("api/v1/products")
@@ -21,8 +26,8 @@ public class ProductController {
     private final ProductService service;
 
     @GetMapping()
-    public ResponseEntity<List<ProductResponse>> listAllProducts(){
-        return ResponseEntity.ok(service.listAllProducts());
+    public ResponseEntity listAllProducts(Pageable pageable){
+        return ResponseEntity.ok(service.listAllProducts(pageable));
     }
 
     @GetMapping(value = "/over-stock")
@@ -32,7 +37,7 @@ public class ProductController {
 
     @GetMapping(value = "/{id}")
     public ResponseEntity<ProductResponse> findProductById(@PathVariable Long id){
-        return ResponseUtil.buildResponseObject(service.findProductById(id));
+        return ResponseEntity.ok(service.findProductById(id));
     }
 
     @PostMapping(value = "/purchase")
@@ -42,6 +47,6 @@ public class ProductController {
 
     @PostMapping(value = "/create")
     public ResponseEntity<Long> createProduct(@RequestBody @Valid ProductRequest request){
-        return ResponseUtil.buildResponseObject(service.createProduct(request));
+        return ResponseEntity.status(CREATED).body(service.createProduct(request));
     }
 }

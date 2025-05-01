@@ -13,13 +13,14 @@ import toast from "react-hot-toast";
 interface UserContextProps {
   children: ReactNode;
 }
-//TODO REVISAR EL FLUJO CON PERMISOS
+
 const UserContext = createContext({
   user: {} as User,
   accessToken: {} as AccessToken,
   logearse: (_data: UserCredentials) => {},
   createUser: (_data: newUser) => {},
   logOut: () => {},
+  setUserEdited: (_data: User) => {},
   loading: false,
 });
 
@@ -40,6 +41,20 @@ const UserContextProvider = ({ children }: UserContextProps) => {
       auth.changeState();
     }
   }, []);
+
+  const setUserEdited = (infoUser: User) => {
+    let newUser = {
+      id: user.id,
+      firstName: user.firstName,
+      lastName: user.lastName,
+      dni: user.dni,
+      phoneNumber: infoUser.phoneNumber,
+      email: user.email,
+      address: infoUser.address
+    }
+    setUser(newUser);
+    window.localStorage.setItem("info", JSON.stringify(newUser));
+  }
 
   const logearse = async (loginData: UserCredentials) => {
     setLoading(true);
@@ -139,7 +154,7 @@ const UserContextProvider = ({ children }: UserContextProps) => {
   };
 
   return (
-    <UserContext.Provider value={{ user, accessToken, logearse, createUser, logOut, loading }}>
+    <UserContext.Provider value={{ user, accessToken, logearse, createUser, logOut, setUserEdited, loading }}>
       {children}
     </UserContext.Provider>
   );

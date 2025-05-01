@@ -1,9 +1,10 @@
+import { Link } from "react-router-dom";
 import { useCart } from "../../contexts/CartContext";
 import { Product } from "../../types/product";
 import { Toaster } from "react-hot-toast";
 
 interface ProductsProps {
-  list: Product[];
+  list: Product[],
 }
 
 const Products = ({ list }: ProductsProps) => {
@@ -28,12 +29,12 @@ const Products = ({ list }: ProductsProps) => {
                 />
               </a>
               <div className="mt-6">
-                <a
-                  href="#"
-                  className="text-lg font-semibold leading-tight text-gray-900 hover:underline  "
+                <Link
+                  to={`/details/${p.id}`} 
+                  className="text-lg font-semibold leading-tight text-gray-900 hover:underline hover:text-[#800020] "
                 >
                   {p.name}
-                </a>
+                </Link>
                 <p className="mt-2 text-base font-normal text-gray-500  ">
                   {p.description}
                 </p>
@@ -47,27 +48,6 @@ const Products = ({ list }: ProductsProps) => {
                 </p>
               </div>
               <div className="mt-6 flex items-center gap-2.5">
-                <button
-                  data-tooltip-target="favourites-tooltip-1"
-                  type="button"
-                  className="inline-flex items-center justify-center gap-2 rounded-lg border border-gray-200 bg-white p-2.5 text-sm font-medium text-gray-900 hover:bg-gray-100 hover:text-[#800020] focus:z-10 focus:outline-none focus:ring-4 focus:ring-gray-100"
-                >
-                  <svg
-                    className="h-5 w-5"
-                    aria-hidden="true"
-                    xmlns="http://www.w3.org/2000/svg"
-                    fill="none"
-                    viewBox="0 0 24 24"
-                  >
-                    <path
-                      stroke="currentColor"
-                      strokeLinecap="round"
-                      strokeLinejoin="round"
-                      strokeWidth="2"
-                      d="M12 6C6.5 1 1 8 5.8 13l6.2 7 6.2-7C23 8 17.5 1 12 6Z"
-                    ></path>
-                  </svg>
-                </button>
                 <button
                   type="button"
                   onClick={() => {

@@ -5,12 +5,12 @@ import ScrollToTop from "../components/shared/ScrollToTop";
 import Filter from "../components/store/Filter";
 import Products from "../components/store/Products";
 import { Product } from "../types/product";
-import { useUser } from "../contexts/UserContext";
+import PaginationButtons from "../components/store/PaginationButtons";
 
 const Store = () => {
   const [products, setProducts] = useState<Product[]>([]);
   const [productsToShow, setProductsToShow] = useState<Product[]>([]);
-  const { accessToken } = useUser();
+  const [page, setPage] = useState(0);
 
   const filterProductsByPrice = (minPrice: number, maxPrice: number) => {
     if (minPrice === 0 && maxPrice === 0) {
@@ -23,6 +23,10 @@ const Store = () => {
       setProductsToShow(filteredProducts);
     }
   };
+
+  const changePage = (newPage: number) => {
+    setPage(newPage);
+  }
 
   const filterProductsByCountry = (country: string) => {
     if (country == "") {
@@ -39,23 +43,23 @@ const Store = () => {
   useEffect(() => {
     const fetchData = async () => {
       try {
-        const response = await fetch("http://localhost:8333/api/v1/products",{
+        const response = await fetch("http://localhost:8333/api/v1/products?page=" + page + "&size=6",{
         });
         if (!response.ok) {
           throw new Error("Error al obtener los datos");
         }
 
-        const resultado: Product[] = await response.json();
-
-        setProducts(resultado);
-        setProductsToShow(resultado);
+        const resultado = await response.json();
+        console.log(resultado)
+        setProducts(resultado.content);
+        setProductsToShow(resultado.content);
       } catch (error) {
         console.log(error);
       }
     };
 
     fetchData();
-  }, []);
+  }, [page]);
 
   return (
     <div>
@@ -71,6 +75,7 @@ const Store = () => {
         </div>
         <Products list={productsToShow} />
       </section>
+      <PaginationButtons changepage={changePage} />
       <Footer />
       <ScrollToTop />
     </div>

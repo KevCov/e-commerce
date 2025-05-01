@@ -93,6 +93,7 @@ export const provinces = [
 
 export const districts = [
   { value: "San Juan de Lurigancho", label: "San Juan de Lurigancho" },
+  { value: "Jesus Maria", label: "Jesus Maria" },
   { value: "San Martín de Porres", label: "San Martín de Porres" },
   { value: "Ate", label: "Ate" },
   { value: "Comas", label: "Comas" },

@@ -12,10 +12,10 @@ import io.jsonwebtoken.io.Decoders;
 import io.jsonwebtoken.security.Keys;
 import io.jsonwebtoken.security.SignatureException;
 import lombok.extern.slf4j.Slf4j;
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
-import org.springframework.http.HttpMethod;
 import org.springframework.http.HttpStatus;
 import org.springframework.security.authentication.UsernamePasswordAuthenticationToken;
 import org.springframework.security.config.annotation.web.reactive.EnableWebFluxSecurity;
@@ -52,6 +52,8 @@ import static org.springframework.http.HttpMethod.GET;
 @EnableWebFluxSecurity
 public class SecurityConfig {
 
+    @Autowired
+    private RouteValidator validator;
     private SecretKey secretKey;
 
     public SecurityConfig(@Value("${jwt.secret}") String sk) {
@@ -71,6 +73,8 @@ public class SecurityConfig {
                         .pathMatchers(OPTIONS, "/**").permitAll()
                         .pathMatchers(GET, "/api/v1/products").permitAll()
                         .pathMatchers(GET, "/api/v1/products/over-stock").permitAll()
+                        .pathMatchers(GET, "/api/v1/products/{id}").permitAll()
+                        .pathMatchers(POST, "api/v1/customers/create").permitAll()
                         .pathMatchers("/api/v1/products/**").hasAnyRole(ADMIN.name(), USER.name())
                         .pathMatchers("/api/v1/order/**").hasAnyRole(ADMIN.name(), USER.name())
                         .pathMatchers("/api/v1/customers/**").hasAnyRole(ADMIN.name(), USER.name())
@@ -85,12 +89,7 @@ public class SecurityConfig {
 
     public WebFilter jwtAuthenticationFilter() {
         return (exchange, chain) -> {
-            if (
-                    exchange.getRequest().getPath().toString().equals("/auth/login") ||
-                            exchange.getRequest().getPath().toString().equals("/api/v1/products") ||
-                            exchange.getRequest().getPath().toString().equals("/api/v1/products/over-stock") ||
-                            exchange.getRequest().getMethod() == OPTIONS
-            ) {
+            if (validator.isPublicEndpoint.test(exchange.getRequest()) || exchange.getRequest().getMethod() == OPTIONS) {
                 return chain.filter(exchange);
             }
 

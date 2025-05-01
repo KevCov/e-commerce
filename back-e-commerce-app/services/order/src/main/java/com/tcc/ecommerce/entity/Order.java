@@ -11,7 +11,6 @@ import java.math.BigDecimal;
 import java.time.LocalDate;
 import java.util.List;
 
-//TODO ELIMINAR CAMPO REFERENCE O REPLANTEARLO
 @Data @NoArgsConstructor @AllArgsConstructor @EqualsAndHashCode @Builder
 @EntityListeners(AuditingEntityListener.class)
 @Entity @Table(name = "customer_order")

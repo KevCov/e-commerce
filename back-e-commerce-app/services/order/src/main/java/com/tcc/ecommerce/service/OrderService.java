@@ -42,15 +42,20 @@ public class OrderService {
 
         log.info("Se encontro al cliente {} {}", customer.firstName(), customer.lastName());
 
-        //Enviar la lista de products al servicio product
-        List<PurchaseResponse> purchasedProducts = this.productClient.purchaseProducts(request.products());
-
-        log.info("Se desconto el stock de los productos: [{}]", purchasedProducts.stream().map(PurchaseResponse::name).toList());
-
         //Persistir orden
         Order order = this.repository.saveAndFlush(mapper.toOrder(request));
 
         log.info("Se persistio la orden: {}", order.toString());
+
+        List<PurchaseResponse> purchasedProducts = null;
+        try {
+            //Enviar la lista de products al servicio product
+            purchasedProducts = this.productClient.purchaseProducts(request.products());
+            log.info("Se desconto el stock de los productos: [{}]", purchasedProducts.stream().map(PurchaseResponse::name).toList());
+        } catch (Exception e) {
+            this.repository.deleteById(order.getId());
+            throw new RuntimeException(e);
+        }
 
         //Persistir orden line
         for (PurchaseResponse purchaseResponse : purchasedProducts){

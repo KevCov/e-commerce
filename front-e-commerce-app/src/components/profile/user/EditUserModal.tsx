@@ -1,18 +1,16 @@
 import { useState } from "react";
-import { departments, districts, provinces } from "../../utils/dataNewShipping";
-import { Shipping } from "../../types/order";
-import { useUser } from "../../contexts/UserContext";
-import { useAuth } from "../../contexts/AuthContext";
+import {
+  departments,
+  districts,
+  provinces,
+} from "../../../utils/dataNewShipping";
+import { useUser } from "../../../contexts/UserContext";
+import { User } from "../../../types/user";
 import toast from "react-hot-toast";
 
-interface AddShippingModalProps {
-  addNewShipping: (newShipping: Shipping) => void;
-}
-
-const AddShippingModal = ({ addNewShipping }: AddShippingModalProps) => {
+const EditUserModal = () => {
   const [isOpen, setIsOpen] = useState(false);
-  const user = useUser();
-  const auth = useAuth();
+  const { user, accessToken, setUserEdited } = useUser();
 
   const openModal = () => {
     setIsOpen(true);
@@ -24,56 +22,62 @@ const AddShippingModal = ({ addNewShipping }: AddShippingModalProps) => {
 
   const handleSubmit = (e: React.FormEvent<HTMLFormElement>) => {
     e.preventDefault();
-    if (!auth.isAuthenticated) {
-      toast.error("¡Debe iniciar sesion para continuar su compra!");
-    } else {
-      const formData = new FormData(e.currentTarget);
-      const newShipping: Shipping = {
-        customerId: user.user.id,
+    const formData = new FormData(e.currentTarget);
+    const editInfoCustomer: User = {
+      phoneNumber: formData.get("phoneNumber") as string,
+      address: {
         department: formData.get("department") as string,
         province: formData.get("province") as string,
         district: formData.get("district") as string,
         street: formData.get("street") as string,
-        houseNumber: formData.get("houseNumber") as string,
-        zipCode: formData.get("zipCode") as string,
-      };
+        houseNumber: formData.get("houseNumber")
+          ? parseInt(formData.get("houseNumber") as string, 10)
+          : undefined,
+        zipCode: formData.get("zipCode")
+          ? parseInt(formData.get("zipCode") as string, 10)
+          : undefined,
+      },
+    };
 
-      createShipping(newShipping);
-    }
+    editCustomer(editInfoCustomer)
   };
 
-  const createShipping = async (shipping: Shipping) => {
+  const editCustomer = async (info: User) => {
     try {
-      const fetchCreate = await fetch(
-        "http://localhost:8333/api/v1/orders/create-shipping",
-        {
-          method: "POST",
-          headers: {
-            "Content-Type": "application/json",
-            "Authorization":`Bearer ${user.accessToken.access_token}`
-          },
-          body: JSON.stringify(shipping),
+        const response = await fetch(
+          `http://localhost:8333/api/v1/customers/edit-info/${user.id}`,
+          {
+            method: "PATCH",
+            headers: {
+              "Content-Type": "application/json",
+              Authorization: `Bearer ${accessToken.access_token}`,
+            },
+            body: JSON.stringify(info),
+          }
+        );
+    
+        if (!response.ok) {
+          throw new Error("Error al editar el cliente");
         }
-      );
-
-      if (fetchCreate.ok) {
-        const data: Shipping = await fetchCreate.json();
-        //metodo padre
-        addNewShipping(data);
-      }
+        
+        setUserEdited(info);
     } catch (error) {
-      console.log(error);
+        console.log(error);
     } finally {
-      closeModal();
-      toast.success("¡Envío creado con éxito!");
+        closeModal();
+        toast.success("¡Información Actualizada!");
     }
-  };
+    
+  }
 
   return (
     <>
-      <a onClick={openModal} href="#">
-        <img src="/images/iconAgregar.png" />
-      </a>
+      <button
+        className=" cursor-pointer absolute top-0 right-0 mt-4 mr-4"
+        onClick={openModal}
+      >
+        <img src="/images/iconEditar.png" />
+      </button>
 
       {isOpen && (
         <div
@@ -86,7 +90,7 @@ const AddShippingModal = ({ addNewShipping }: AddShippingModalProps) => {
             <div className="relative bg-white rounded-lg shadow-sm ">
               <div className="flex items-center justify-between p-4 md:p-5 border-b rounded-t border-gray-200">
                 <h3 className="text-lg w-full text-center font-semibold text-gray-900 ">
-                  Crear nuevo envío
+                  Editar Información
                 </h3>
                 <button
                   type="button"
@@ -124,7 +128,7 @@ const AddShippingModal = ({ addNewShipping }: AddShippingModalProps) => {
                     <select
                       name="department"
                       id="department"
-                      defaultValue="Seleccionar departamento"
+                      defaultValue={user.address?.department}
                       className="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-primary-600 focus:border-primary-600 block w-full p-2.5"
                       required
                     >
@@ -146,7 +150,7 @@ const AddShippingModal = ({ addNewShipping }: AddShippingModalProps) => {
                     <select
                       name="province"
                       id="province"
-                      defaultValue="Seleccionar provincia"
+                      defaultValue={user.address?.province}
                       className="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-primary-600 focus:border-primary-600 block w-full p-2.5"
                       required
                     >
@@ -168,7 +172,7 @@ const AddShippingModal = ({ addNewShipping }: AddShippingModalProps) => {
                     <select
                       name="district"
                       id="district"
-                      defaultValue="Seleccionar distrito"
+                      defaultValue={user.address?.district}
                       className="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-primary-600 focus:border-primary-600 block w-full p-2.5"
                       required
                     >
@@ -191,6 +195,7 @@ const AddShippingModal = ({ addNewShipping }: AddShippingModalProps) => {
                       type="text"
                       name="street"
                       id="street"
+                      defaultValue={user.address?.street}
                       className="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-primary-600 focus:border-primary-600 block w-full p-2.5"
                       required
                     />
@@ -206,9 +211,10 @@ const AddShippingModal = ({ addNewShipping }: AddShippingModalProps) => {
                       type="number"
                       name="houseNumber"
                       id="houseNumber"
+                      defaultValue={user.address?.houseNumber}
                       className="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-primary-600 focus:border-primary-600 block w-full p-2.5"
                       required
-                    />
+                    />{" "}
                   </div>
                   <div className="col-span-2 sm:col-span-1">
                     <label
@@ -221,29 +227,34 @@ const AddShippingModal = ({ addNewShipping }: AddShippingModalProps) => {
                       type="number"
                       name="zipCode"
                       id="zipCode"
+                      defaultValue={user.address?.zipCode}
                       max="99999"
                       className="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-primary-600 focus:border-primary-600 block w-full p-2.5"
                       required
                     />
                   </div>
+                  <div className="col-span-2 sm:col-span-1">
+                    <label
+                      htmlFor="phoneNumber"
+                      className="block mb-2 text-sm font-medium text-gray-900"
+                    >
+                      Número Celular
+                    </label>
+                    <input
+                      type="text"
+                      name="phoneNumber"
+                      id="phoneNumber"
+                      defaultValue={user.phoneNumber}
+                      className="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-primary-600 focus:border-primary-600 block w-full p-2.5"
+                      required
+                    />{" "}
+                  </div>
                 </div>
                 <button
                   type="submit"
-                  className="text-white hover:text-[#800020] inline-flex items-center bg-[#800020] hover:bg-[#800020]/40 cursor-pointer font-medium rounded-lg text-sm px-5 py-2.5 text-center"
+                  className="text-white hover:text-[#800020] inline-flex items-center bg-[#800020] hover:bg-[#800020]/40 cursor-pointer font-medium rounded-lg text-sm mt-2 px-5 py-2.5 text-center"
                 >
-                  <svg
-                    className="me-1 -ms-1 w-5 h-5"
-                    fill="currentColor"
-                    viewBox="0 0 20 20"
-                    xmlns="http://www.w3.org/2000/svg"
-                  >
-                    <path
-                      fillRule="evenodd"
-                      d="M10 5a1 1 0 011 1v3h3a1 1 0 110 2h-3v3a1 1 0 11-2 0v-3H6a1 1 0 110-2h3V6a1 1 0 011-1z"
-                      clipRule="evenodd"
-                    ></path>
-                  </svg>
-                  Agregar envío
+                  Editar
                 </button>
               </form>
             </div>
@@ -254,4 +265,4 @@ const AddShippingModal = ({ addNewShipping }: AddShippingModalProps) => {
   );
 };
 
-export default AddShippingModal;
+export default EditUserModal;

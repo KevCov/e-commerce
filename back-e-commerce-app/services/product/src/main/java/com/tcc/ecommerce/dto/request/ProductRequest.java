@@ -19,6 +19,9 @@ public record ProductRequest(
         @NotEmpty(message = "Product description is required")
         String description,
 
+        @NotEmpty(message = "Product large description is required")
+        String largedescription,
+
         @NotEmpty(message = "Country origin is required")
         @Size(min = 1, max = 50)
         String countryOrigin,

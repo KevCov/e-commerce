@@ -25,6 +25,9 @@ public class Product {
     @Column(name = "description", nullable = false, columnDefinition = "TEXT")
     private String description;
 
+    @Column(name = "large_description", nullable = false, columnDefinition = "TEXT")
+    private String largeDescription;
+
     @Column(name = "country_origin", nullable = true, length = 50)
     private String countryOrigin;
 

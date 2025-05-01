@@ -51,4 +51,10 @@ public class CustomerController {
         service.disableCustomer(id);
         return ResponseEntity.noContent().build();
     }
+
+    @PatchMapping(value = "/edit-info/{id}")
+    public ResponseEntity editPartialInfoCustomer(@PathVariable ObjectId id, @RequestBody CustomerRequest request) {
+        service.editPartialInfoCustomer(id, request);
+        return ResponseEntity.noContent().build();
+    }
 }

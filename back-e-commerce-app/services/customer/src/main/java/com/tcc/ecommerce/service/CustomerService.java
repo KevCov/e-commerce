@@ -87,4 +87,14 @@ public class CustomerService {
     public boolean existsCustomer(ObjectId id) {
         return repository.existsById(id);
     }
+
+    public void editPartialInfoCustomer(ObjectId id, CustomerRequest request) {
+        repository.findById(id).ifPresentOrElse(
+                c -> {
+                    c.setAddress(request.address());
+                    c.setPhoneNumber(request.phoneNumber());
+                    repository.save(c);
+                }, () -> new NotFoundException("Cliente con el id: " + id.toString() + " no fue encontrado")
+        );
+    }
 }
