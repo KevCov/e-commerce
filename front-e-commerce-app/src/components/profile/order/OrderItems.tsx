@@ -8,7 +8,7 @@ const OrderItems = ({order}: OrderItemsProps) => {
     return (
         <div className="space-y-4">
                       <h3 className="text-sm font-medium text-gray-900">
-                        Items Purchased
+                        Productos en la orden
                       </h3>
                       <div className="space-y-4">
                         {order.products.map((item) => {

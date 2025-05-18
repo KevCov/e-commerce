@@ -11,6 +11,7 @@ const PaginationButtons = ({ changepage }: PaginationButtonsProps) => {
         <button
           key={index}
           onClick={() => {
+            window.scrollTo(0, 0);
             changepage(index);
           }}
           className="bg-[#800020] text-white font-bold py-2 px-4 rounded m-2"

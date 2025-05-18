@@ -11,7 +11,7 @@ const OrderInfo = ({order}: OrderInfoProps) => {
       <div className="mb-4 md:mb-0">
         <div className="flex items-center space-x-4">
           <span className="text-sm font-bold text-gray-900">
-            Order #{order.id}
+            Orden #{order.id}
           </span>
           <span className="px-3 py-1 rounded-full text-xs font-medium bg-green-100 text-green-800">Entregado</span>
         </div>

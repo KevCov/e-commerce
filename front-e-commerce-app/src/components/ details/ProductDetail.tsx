@@ -35,7 +35,7 @@ const ProductDetail = ({ idProduct }: ProductDetailProps) => {
         <img className="w-full h-full" alt="img" src={product.urlImage} />
       </div>
       <div className="xl:w-2/5 md:w-1/2 lg:ml-8 md:ml-6 md:mt-0 mt-6">
-        <div className="border-b border-gray-200 pb-6">
+        <div className="border-b border-gray-300 pb-6">
           <h1
             className="
 							lg:text-2xl
@@ -51,27 +51,27 @@ const ProductDetail = ({ idProduct }: ProductDetailProps) => {
           </h1>
         </div>
         <div>
-          <p className="xl:pr-48 text-base lg:leading-tight leading-normal text-gray-600 mt-7">
-            {product.description}
+          <p className=" text-base lg:leading-tight leading-normal text-gray-700 mt-7">
+            {product.largeDescription}
           </p>
-          <p className="text-base leading-4 mt-7 text-gray-600">
+          <p className="text-base leading-4 mt-7 text-gray-700">
             <strong className="text-[#800020] mr-5">País de origen:</strong> {product.countryOrigin}
           </p>
-          <p className="text-base leading-4 mt-4 text-gray-600">
+          <p className="text-base leading-4 mt-4 text-gray-700">
             <strong className="text-[#800020] mr-5">Unidad de medida:</strong> {product.uom}
           </p>
-          <p className="text-base leading-4 mt-4 text-gray-600">
+          <p className="text-base leading-4 mt-4 text-gray-700">
             <strong className="text-[#800020] mr-5">Stock disponible:</strong> {product.stock}
           </p>
-          <p className="text-base leading-4 mt-4 text-gray-600">
+          <p className="text-base leading-4 mt-4 text-gray-700">
             <strong className="text-[#800020] mr-5">Categoria:</strong> {product.category ? `${product.category.name}` : "No disponible"}
           </p>
-          <p className="md:w-96 text-base leading-normal text-gray-600 mt-4">
+          <p className="md:w-96 text-base leading-normal text-gray-700 mt-4">
             <strong className="text-[#800020] mr-5">Viñedo:</strong> {product.brand ? `${product.brand.name}` : "No disponible"}
           </p>
         </div>
         <div>
-          <div className="border-t border-b py-4 mt-7 border-gray-200">
+          <div className="border-t border-b py-4 mt-7 border-gray-300">
             <div
               onClick={() => setShow(!show)}
               className="flex justify-between items-center cursor-pointer"
@@ -107,18 +107,17 @@ const ProductDetail = ({ idProduct }: ProductDetailProps) => {
             </div>
             <div
               className={
-                "pt-4 text-base leading-normal pr-12 mt-4 text-gray-600 " +
+                "pt-4 text-base leading-normal pr-12 mt-4 text-gray-700 " +
                 (show ? "block" : "hidden")
               }
               id="sect"
             >
-              You will be responsible for paying for your own shipping costs for
-              returning your item. Shipping costs are nonrefundable
+              Usted será responsable de pagar los gastos de envío para la devolución de su artículo. Los gastos de envío no son reembolsables.
             </div>
           </div>
         </div>
         <div>
-          <div className="border-b py-4 border-gray-200">
+          <div className="border-b py-4 border-gray-300">
             <div
               onClick={() => setShow2(!show2)}
               className="flex justify-between items-center cursor-pointer"
@@ -152,13 +151,12 @@ const ProductDetail = ({ idProduct }: ProductDetailProps) => {
             </div>
             <div
               className={
-                "pt-4 text-base leading-normal pr-12 mt-4 text-gray-600 " +
+                "pt-4 text-base leading-normal pr-12 mt-4 text-gray-700 " +
                 (show2 ? "block" : "hidden")
               }
               id="sect"
             >
-              If you have any questions on how to return your item to us,
-              contact us.
+              Si tiene alguna pregunta sobre cómo devolvernos su artículo, contáctenos.
             </div>
           </div>
         </div>

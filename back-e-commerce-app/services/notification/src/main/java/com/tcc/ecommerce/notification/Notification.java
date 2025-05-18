@@ -14,7 +14,7 @@ import java.time.LocalDateTime;
 @Builder
 @Getter
 @Setter
-@Document
+@Document(collection = "notifications")
 @AllArgsConstructor
 @NoArgsConstructor
 public class Notification {

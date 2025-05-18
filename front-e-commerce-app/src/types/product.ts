@@ -13,6 +13,7 @@ export interface Product {
     id: string,
     name: string,
     description: string,
+    largeDescription?: string,
     countryOrigin: string,
     unitPrice: number,
     quantity: number,
